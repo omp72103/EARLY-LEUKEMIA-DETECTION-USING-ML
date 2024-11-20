@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leukemia Cancer Detection</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f4f8;
+            overflow: hidden;
+        }
+
+        .background-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .background-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            height: 80vh; 
+            overflow-y: auto;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        .container:hover {
+            transform: scale(1.05);
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto 10px;
+            width: 400px;
+            height: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+
+        .form-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="number"],
+        input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .upload-btn-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .btn {
+            border: 1px solid #4CAF50;
+            color: white;
+            background-color: #4CAF50;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .option-toggle {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <div class="container">
+            <img src="cancer_logo.png" alt="Cancer Logo" class="logo">
+            <h1>Leukemia Cancer Detection</h1>
+            
+            <form id="leukemiaForm" enctype="multipart/form-data">
+                <!-- Input fields for parameters -->
+                <div class="form-container">
+                    <div class="form-group">
+                        <label for="radius_mean">Radius Mean</label>
+                        <input type="number" id="radius_mean" name="radius_mean" placeholder="Enter Radius Mean">
+                    </div>
+                    <div class="form-group">
+                        <label for="texture_mean">Texture Mean</label>
+                        <input type="number" id="texture_mean" name="texture_mean" placeholder="Enter Texture Mean">
+                    </div>
+                    <div class="form-group">
+                        <label for="perimeter_mean">Perimeter Mean</label>
+                        <input type="number" id="perimeter_mean" name="perimeter_mean" placeholder="Enter Perimeter Mean">
+                    </div>
+                    <div class="form-group">
+                        <label for="area_mean">Area Mean</label>
+                        <input type="number" id="area_mean" name="area_mean" placeholder="Enter Area Mean">
+                    </div>
+                    <div class="form-group">
+                        <label for="symmetry_mean">Symmetry Mean</label>
+                        <input type="number" id="symmetry_mean" name="symmetry_mean" placeholder="Enter Symmetry Mean">
+                    </div>
+                    <div class="form-group">
+                        <label for="radius_se">Radius SE</label>
+                        <input type="number" id="radius_se" name="radius_se" placeholder="Enter Radius SE">
+                    </div>
+                    <div class="form-group">
+                        <label for="texture_se">Texture SE</label>
+                        <input type="number" id="texture_se" name="texture_se" placeholder="Enter Texture SE">
+                    </div>
+                    <div class="form-group">
+                        <label for="perimeter_se">Perimeter SE</label>
+                        <input type="number" id="perimeter_se" name="perimeter_se" placeholder="Enter Perimeter SE">
+                    </div>
+                    <div class="form-group">
+                        <label for="area_se">Area SE</label>
+                        <input type="number" id="area_se" name="area_se" placeholder="Enter Area SE">
+                    </div>
+                    <div class="form-group">
+                        <label for="fractal_dimension_se">Fractal Dimension SE</label>
+                        <input type="number" id="fractal_dimension_se" name="fractal_dimension_se" placeholder="Enter Fractal Dimension SE">
+                    </div>
+                    <div class="form-group">
+                        <label for="radius_worst">Radius Worst</label>
+                        <input type="number" id="radius_worst" name="radius_worst" placeholder="Enter Radius Worst">
+                    </div>
+                    <div class="form-group">
+                        <label for="texture_worst">Texture Worst</label>
+                        <input type="number" id="texture_worst" name="texture_worst" placeholder="Enter Texture Worst">
+                    </div>
+                    <div class="form-group">
+                        <label for="perimeter_worst">Perimeter Worst</label>
+                        <input type="number" id="perimeter_worst" name="perimeter_worst" placeholder="Enter Perimeter Worst">
+                    </div>
+                    <div class="form-group">
+                        <label for="area_worst">Area Worst</label>
+                        <input type="number" id="area_worst" name="area_worst" placeholder="Enter Area Worst">
+                    </div>
+                </div>
+
+                <!-- Image Upload Option -->
+                <div class="upload-btn-wrapper">
+                    <label>Or, upload an image instead:</label>
+                    <input type="file" id="cellImage" name="cellImage" accept="image/*">
+                </div>
+
+                <!-- Submit Button -->
+                <button type="button" class="submit-btn" onclick="submitForm()">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        async function submitForm() {
+            const formData = new FormData(document.getElementById("leukemiaForm"));
+
+            // Check if any number field has been filled
+            const hasParameters = Array.from(document.querySelectorAll("#leukemiaForm input[type='number']"))
+                                       .some(input => input.value);
+            // Check if an image file is uploaded
+            const hasFile = document.getElementById("cellImage").files.length > 0;
+
+            if (hasFile) {
+                try {
+                    const response = await fetch("/upload-image", {
+                        method: "POST",
+                        body: formData
+                    });
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    } else {
+                        const result = await response.json();
+                        alert(result.message || "Error uploading image.");
+                    }
+                } catch (error) {
+                    alert("Error uploading image: " + error.message);
+                }
+            } else if (hasParameters) {
+                try {
+                    const response = await fetch("/submit-parameters", {
+                        method: "POST",
+                        body: formData
+                    });
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    } else {
+                        const result = await response.json();
+                        alert(result.message || "Error submitting parameters.");
+                    }
+                } catch (error) {
+                    alert("Error submitting parameters: " + error.message);
+                }
+            } else {
+                alert("Please either upload an image or fill in the parameters.");
+            }
+        }
+    </script>
+</body>
+</html>
